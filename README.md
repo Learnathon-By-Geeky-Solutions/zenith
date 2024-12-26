@@ -21,6 +21,7 @@ Add your project description here.
 2. Make small, focused commits
 3. Write descriptive commit messages
 4. Create pull requests for review
+5. Checking if I can make change in the repo (Itminan30)
 
 ## Resources
 - [Project Documentation](docs/)
