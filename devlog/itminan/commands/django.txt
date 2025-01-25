@@ -1,0 +1,5 @@
+create django project       ==> django-admin startproject <project_name>
+run server                  ==> python manage.py runserver
+create app (features)       ==> python manage.py startapp challenges
+create a migration          ==> python manage.py makemigrations
+run migration               ==> python manage.py migrate
