@@ -1,0 +1,2 @@
+init text file 
+// will be removed later
