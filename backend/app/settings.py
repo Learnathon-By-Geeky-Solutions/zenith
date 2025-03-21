@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DATABASE_NAME', 'postgres'),  # Default database name for Supabase
+        'USER': os.getenv('DATABASE_USER', 'postgres'),  # Default database user for Supabase
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),  # Default database password for Supabase
+        'HOST': os.getenv('DATABASE_HOST'),  # e.g., db.xyz.supabase.co
+        'PORT': os.getenv('DATABASE_PORT', '5432'),  # Default port for Supabase
     }
 }
 
