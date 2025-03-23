@@ -44,8 +44,8 @@ INSTALLED_APPS = [
 
     # Created apps
     'classroom',
-    'userauth'
-  
+    'userauth',
+
     # Installed apps
     'rest_framework',
     'rest_framework.authtoken',
