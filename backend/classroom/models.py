@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 
 class Classroom(models.Model):
+    ''' Classroom model '''
+
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
 
@@ -26,6 +28,8 @@ class Classroom(models.Model):
 
 
 class Student(models.Model):
+    ''' Student model '''
+    
     students = models.ManyToManyField(User)
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, null=True)
 
