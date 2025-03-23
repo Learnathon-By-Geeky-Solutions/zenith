@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,12 +44,18 @@ INSTALLED_APPS = [
 
     # Created apps
     'assignment',
+    'classroom',
+    'userauth',
 
     # Installed apps
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,6 +64,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 ROOT_URLCONF = 'app.urls'
 
@@ -86,11 +100,15 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DATABASE_NAME', 'postgres'),  # Default database name for Supabase
-        'USER': os.getenv('DATABASE_USER', 'postgres'),  # Default database user for Supabase
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),  # Default database password for Supabase
+        # Default database name for Supabase
+        'NAME': os.getenv('DATABASE_NAME', 'postgres'),
+        # Default database user for Supabase
+        'USER': os.getenv('DATABASE_USER', 'postgres'),
+        # Default database password for Supabase
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'HOST': os.getenv('DATABASE_HOST'),  # e.g., db.xyz.supabase.co
-        'PORT': os.getenv('DATABASE_PORT', '5432'),  # Default port for Supabase
+        # Default port for Supabase
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
     }
 }
 
@@ -125,11 +143,23 @@ USE_I18N = True
 
 USE_TZ = True
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = 'staticfiles/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
