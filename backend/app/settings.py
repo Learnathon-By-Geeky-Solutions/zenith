@@ -26,15 +26,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG') == 'True'
 
+
+# SECURITY WARNING: don't run with debug turned on in production!
+
+DEBUG=os.getenv('DEBUG')
 ALLOWED_HOSTS = []
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin', #used to change django basic admin to more customizable admin dashboard
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Installed apps
     'rest_framework',
+
+    #custom app
+    'core',
+    'api',
+    'userauths',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +69,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,8 +131,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS=[os.path.join(BASE_DIR,"static")]
+STATIC_ROOT=BASE_DIR/'templates'
 
+MEDIA_URL='/media/'
+MEDIA_ROOT=BASE_DIR/ 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+JAZZMIN_SETTINGS = {
+    "site_title": "Zenith ",  # Changed to reflect team name
+    "site_header": "Zenith ",  # Changed to reflect team name
+    "site_brand": "Zenith ",  # Changed to reflect team name
+    "site_logo": None,  
+    "login_logo": None,
+    "login_logo_dark": None,
+    "site_logo_classes": "img-circle",
+    "site_icon": None,
+    "welcome_sign": "Welcome to Zenith ",  # Updated
+    "copyright": "Zenith  Ltd",  # Updated for personalization
+    "show_ui_builder": True
+
+
+
+}
