@@ -6,7 +6,7 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 cryptography==42.0.5
 dj-database-url==2.1.0
-Django==5.0.6
+Django==5.0.8
 django-anymail==10.2
 django-cors-headers==4.3.1
 django-jazzmin==2.6.0
