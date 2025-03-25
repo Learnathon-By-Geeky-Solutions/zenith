@@ -1,6 +1,7 @@
 from  rest_framework import serializers
 from  userauths.models import User, Profile
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth.password_validation import validate_password
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -20,3 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ["__all__"]
+
+class  RegisterSerializer(serializers.ModelSerializer):
+    password=serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password2=serializers.CharField(write_only=True, required=True)
