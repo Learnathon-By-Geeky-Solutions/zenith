@@ -5,6 +5,7 @@ from rest_framework import generics
 from userauths.models import User, Profile
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
 import random
 
 # this view is for token generation
@@ -44,3 +45,24 @@ class PasswordResetEmailVerifyAPIView(generics.RetrieveAPIView):
             print("link=",link)
             return user
         return None
+    
+
+class PasswordChangeAPIView(generics.CreateAPIView):
+    permission_classes=[AllowAny]
+    serializer_class=api_serializer.UserSerializer
+   
+    def create(self, request, *args, **kwargs):
+        payload=request.data
+        otp=payload['otp']
+        uuidb64=payload['uuidb64']
+        password=payload['password']
+
+        user=User.objects.get(id=uuidb64,otp=otp)
+        if user:
+            user.set_password(password)
+            user.otp=""
+            user.save()
+            return Response({"message":"password changed successfully"},status=200)
+        else:
+            return Response({"message":"user doesn't exist"},status=400)
+ 
