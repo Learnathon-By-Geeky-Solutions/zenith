@@ -25,3 +25,18 @@ class ProfileSerializer(serializers.ModelSerializer):
 class  RegisterSerializer(serializers.ModelSerializer):
     password=serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2=serializers.CharField(write_only=True, required=True)
+    class Meta:
+        model=User
+        fields=['email','username','full_name','password','password2']
+    def validate(self, attr):
+        if attr['password'] != attr['password2']:
+            raise serializers.ValidationError({"password":"password does not match"})
+        return attr
+    def create(self, validated_data):
+        user=User.objects.create(
+            email=validated_data['email'],
+            full_name=validated_data['full_name']
+        )
+        email_username,_=user.email.split('@')
+        user.username=email_username
+        user.save()
