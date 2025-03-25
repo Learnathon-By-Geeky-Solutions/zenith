@@ -10,7 +10,9 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = api_serializer.MyTokenObtainPairSerializer
 '''when someone geos to  register endpoint it will come to this endpoint
 and it will allow any user to use this endpoint'''
-class RegiserView(generics.CreateAPIView):
+
+
+class RegisterView(generics.CreateAPIView):
      queryset = User.objects.all()
      permission_classes = [AllowAny] #allows any user to use this endpoint
      serializer_class = api_serializer.RegisterSerializer
