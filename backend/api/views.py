@@ -16,3 +16,15 @@ class RegisterView(generics.CreateAPIView):
      queryset = User.objects.all()
      permission_classes = [AllowAny] #allows any user to use this endpoint
      serializer_class = api_serializer.RegisterSerializer
+
+
+#how to reset password
+class PasswordResetEmailVerifyAPIView(generics.RetrieveAPIView):
+    permission_classes=[AllowAny]
+    serializer_class=api_serializer.UserSerializer # user model will be modified so we need the serializer to be modified
+
+    def get_object(self):
+        email=self.kwargs['email'] #Grabs the email from the URL
+        user=User.objects.filter(email=email).first()
+        if user:
+            user.otp="1234"
