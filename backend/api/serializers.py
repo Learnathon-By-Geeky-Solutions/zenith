@@ -15,12 +15,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["__all__"]
+        fields = '__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ["__all__"]
+        fields = '__all__'
 
 class  RegisterSerializer(serializers.ModelSerializer):
     password=serializers.CharField(write_only=True, required=True, validators=[validate_password])
