@@ -108,3 +108,31 @@ class Course(models.Model):
         if self.slug == "" or self.slug is None:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    #all the students enrolled in the course
+    def students(self):
+        return EnrolledCourse.objects.filter(course=self)
+    
+    def curriculum(self):
+        return  VariantItem.objects.filter(variant_course=self)
+    
+    def lectures(self):
+        return  VariantItem.objects.filter(variant_course=self)
+    
+    def average_rating(self):
+        average_rating=Review.objects.filter(course=self,active=True).aggregate(average_rating=models.Avg('rating'))
+        return average_rating['average_rating']
+    
+    def rating_count(self):
+        return Review.objects.filter(course=self,active=True).count()
+    
+    def reviews(self):
+        return Review.objects.filter(course=self,active=True)
+    
+
+class Variant(models.Model):
+    
+    
+    
+
+    
