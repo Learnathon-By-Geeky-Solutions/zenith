@@ -131,7 +131,11 @@ class Course(models.Model):
     
 
 class Variant(models.Model):
-    
+    course=models.ForeignKey(Course,on_delete=models.CASCADE)
+    title=models.CharField(max_length=100)
+    vairant_id=ShortUUIDField(unique=True,length=6,max_length=20,alphabet='0123456789')
+    date=models.DateTimeField(default=timezone.now)
+
     
     
 
