@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+MAILGUN_API_KEY=os.getenv('MAILGUN_API_KEY')
 
 
 
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders', #used to allow cross origin request
+    'drf_yasg', #used to generate swagger documentation
 ]
 
 MIDDLEWARE = [
