@@ -2,18 +2,18 @@ name: Django CI
 
 on:
   push:
-    branches: ["dev-branch"]
+    branches: ["test"]
   pull_request:
-    branches: ["main", "dev-branch"]
+    branches: ["main", "test"]
 
 jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python 3.10
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
       - name: Install Dependencies
