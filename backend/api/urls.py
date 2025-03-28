@@ -17,5 +17,9 @@ urlpatterns = [
      #adding items to cart url
     path("course/cart/", api_views.CartAPIView.as_view()),
     #getting cart-list
+
     path("course/cart-list/<cart_id>/", api_views.CartListAPIView.as_view()),
+
+    path("course/cart-list/", api_views.CartListAPIView.as_view()),
+
 ]
