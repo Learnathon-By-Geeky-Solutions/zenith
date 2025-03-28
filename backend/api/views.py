@@ -152,5 +152,15 @@ class CartAPIView(generics.CreateAPIView):
             cart.save()
 
             return Response({"message": "Cart Created Successfully"}, status=status.HTTP_201_CREATED)
+        
+#cart list api view
+
+class CartListAPIView(generics.ListAPIView):
+    serliazer_class = api_serializer.CartSerializer
+    permission_classes = [AllowAny]
+    def get_querysdt(self):
+        cart_id = self.kwargs['cart_id']
+        queryset = api_models.Cart.objects.filter(cart_id=cart_id)
+        return queryset
 
  
