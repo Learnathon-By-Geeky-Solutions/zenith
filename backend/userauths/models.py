@@ -5,6 +5,8 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 class User(AbstractUser):
+    ''' Custom User Model '''
+
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=100)
@@ -28,6 +30,8 @@ class User(AbstractUser):
         super(User, self).save(*args, **kwargs)
 
 class Profile(models.Model):
+    ''' User Profile Model '''
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.FileField(upload_to='user_folder', default='default-user.jpg', blank=True, null=True)
     full_name = models.CharField(max_length=100)
@@ -54,5 +58,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+# Signals to create and save user profile
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(save_user_profile, sender=User)
