@@ -153,7 +153,7 @@ class CartAPIView(generics.CreateAPIView):
 
             return Response({"message": "Cart Created Successfully"}, status=status.HTTP_201_CREATED)
         
-#cart list api view for getting cart list #cannt commit
+#cart list api view for getting cart list 
 class CartListAPIView(generics.ListAPIView):
     serializer_class = api_serializer.CartSerializer
     permission_classes = [AllowAny]
@@ -162,5 +162,20 @@ class CartListAPIView(generics.ListAPIView):
         cart_id = self.kwargs['cart_id']
         queryset = api_models.Cart.objects.filter(cart_id=cart_id)
         return queryset
+
+
+#cartItemDelete
+class CartItemDeleteAPIView(generics.DestroyAPIView):
+    serializer_class = api_serializer.CartSerializer
+    permission_classes = [AllowAny]
+
+    def get_object(self):
+        cart_id = self.kwargs['cart_id']
+        item_id = self.kwargs['item_id']
+        return api_models.Cart.objects.filter(cart_id=cart_id, id=item_id).first()
+
+
+    
+#The RetrieveAPIView is used when you want to fetch and return a single instance (or record) of a model rather than a list of items. 
 
  
