@@ -23,13 +23,13 @@ urlpatterns = [
   #deleting cart item
   path("course/cart-item-delete/<cart_id>/<item_id>/", api_views.CartItemDeleteAPIView.as_view()),
   
-    #getting cart total
-    path("cart/stats/<cart_id>/", api_views.CartStatsAPIView.as_view()),
+#getting cart total
+path("cart/stats/<cart_id>/", api_views.CartStatsAPIView.as_view()),
 
   
 
-
-     path("order/create-order/", api_views.CreateOrderAPIView.as_view()),
+#placing order url
+ path("order/create-order/", api_views.CreateOrderAPIView.as_view()),
 
  
 

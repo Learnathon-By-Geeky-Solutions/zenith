@@ -218,7 +218,7 @@ class CartStatsAPIView(generics.RetrieveAPIView):
         "user_id": "1"
     }
 
-    class CreateOrderAPIView(generics.CreateAPIView):
+class CreateOrderAPIView(generics.CreateAPIView):
         serializer_class = api_serializer.CartOrderSerializer
         permission_classes = [AllowAny]
         queryset = api_models.CartOrder.objects.all()
