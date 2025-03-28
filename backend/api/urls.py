@@ -22,5 +22,7 @@ urlpatterns = [
   
   #deleting cart item
   path("course/cart-item-delete/<cart_id>/<item_id>/", api_views.CartItemDeleteAPIView.as_view()),
-
+  
+    #getting cart total
+    path("cart/stats/<cart_id>/", api_views.CartStatsAPIView.as_view()),
 ]
