@@ -154,8 +154,6 @@ class CartAPIView(generics.CreateAPIView):
             return Response({"message": "Cart Created Successfully"}, status=status.HTTP_201_CREATED)
         
 #cart list api view for getting cart list
-
-
 class CartListAPIView(generics.ListAPIView):
     serializer_class = api_serializer.CartSerializer
     permission_classes = [AllowAny]
