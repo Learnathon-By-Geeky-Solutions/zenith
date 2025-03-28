@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     # Custom apps
     'core',
+    'userauths',
 
     # Third-party apps
     'rest_framework',
