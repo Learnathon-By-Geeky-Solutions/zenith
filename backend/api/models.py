@@ -231,6 +231,7 @@ class Question_Answer_Message(models.Model):
 
     def profile(self):
         return Profile.objects.get(user=self.user)
+    
 #Represents a single course added to a user's cart before they make a purchase.
 class Cart(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
