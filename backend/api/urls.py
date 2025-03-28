@@ -26,14 +26,14 @@ urlpatterns = [
 #getting cart total
 path("cart/stats/<cart_id>/", api_views.CartStatsAPIView.as_view()),
 
-  
-
 #placing order url
  path("order/create-order/", api_views.CreateOrderAPIView.as_view()),
 
  #checkout url
  path("order/checkout/<oid>/", api_views.CheckoutAPIView.as_view()),
 
+#apply cupon
+ path("order/coupon/", api_views.CouponApplyAPIView.as_view()),
  
 
 
