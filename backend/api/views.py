@@ -209,6 +209,14 @@ class CartStatsAPIView(generics.RetrieveAPIView):
         return Response(data)
     
     #create order api view
+    # data to set out this end point
+    {
+        "full_name": "John Doe", 
+        "email":"elaf@gmail.com",
+        "country":"United States",
+        "cart_id":  "12324",
+        "user_id": "1"
+    }
 
     class CreateOrderAPIView(generics.CreateAPIView):
         serializer_class = api_serializer.CartOrderSerializer
