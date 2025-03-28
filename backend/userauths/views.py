@@ -1,7 +1,8 @@
 import random
 from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from . import serializers as user_serializers
@@ -37,3 +38,20 @@ class PasswordResetEmailVerifyAPIView(generics.RetrieveAPIView):
             user.save()
             link = f'http://localhost:5173/create-new-password/?otp={user.otp}&uuidb64={uuidb64}&=refresh_token{refresh_token}'
         return user
+
+class PasswordChangeAPIView(generics.CreateAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = user_serializers.UserSerializer
+
+    def create(self, request, *args, **kwargs):
+        otp = request.data['otp']
+        uuidb64 = request.data['uuidb64']
+        password = request.data['password']
+        user = User.objects.get(id=uuidb64, otp=otp)
+        if user:
+            user.set_password(password)
+            user.otp = ''
+            user.save()
+            return Response({'message': 'Password changed successfully'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'message': "User Doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
