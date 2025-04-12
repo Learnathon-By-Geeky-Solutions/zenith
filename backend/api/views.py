@@ -13,6 +13,7 @@ from decimal import Decimal
 import requests
 import stripe
 from django.conf import settings
+from django.contrib.auth.hashers import check_password
 
 # this view is for token generation
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -52,7 +53,7 @@ class PasswordResetEmailVerifyAPIView(generics.RetrieveAPIView):
             return user
         return None
     
-
+#forgot password view
 class PasswordChangeAPIView(generics.CreateAPIView):
     permission_classes=[AllowAny]
     serializer_class=api_serializer.UserSerializer
@@ -71,6 +72,31 @@ class PasswordChangeAPIView(generics.CreateAPIView):
             return Response({"message":"password changed successfully"},status=200)
         else:
             return Response({"message":"user doesn't exist"},status=400)
+
+#new password view
+class ChangePasswordAPIView(generics.CreateAPIView):
+    serializer_class = api_serializer.UserSerializer
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        user_id = request.data['user_id']
+        old_password = request.data['old_password']
+        new_password = request.data['new_password']
+
+        user = User.objects.get(id=user_id)
+        if user is not None:
+            if check_password(old_password, user.password):
+                user.set_password(new_password)
+                user.save()
+                return Response({"message": "Password changed successfully", "icon": "success"})
+            else:
+                return Response({"message": "Old password is incorrect", "icon": "warning"})
+        else:
+            return Response({"message": "User does not exists", "icon": "error"})
+
+                
+
+
 
 
 class CategoryListAPIView(generics.ListAPIView):
