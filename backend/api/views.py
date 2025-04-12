@@ -32,6 +32,16 @@ def generate_random_otp(length=7):
     otp="".join([str(random.randint(0,9)) for _ in range(length)])
     return otp
 
+#User profile View
+class ProfileAPIView(generics.RetrieveUpdateAPIView):
+    serializer_class = api_serializer.ProfileSerializer
+    permission_classes = [AllowAny]
+
+    def get_object(self):
+        user_id = self.kwargs['user_id']
+        user = User.objects.get(id=user_id)
+        return Profile.objects.get(user=user)
+
 #how to reset password
 class PasswordResetEmailVerifyAPIView(generics.RetrieveAPIView):
     permission_classes=[AllowAny]
