@@ -369,4 +369,26 @@ class StripeCheckoutAPIView(generics.CreateAPIView):
             return Response({"message": f"Something went wrong when trying to make payment. Error: {str(e)}"})
 
 
+class StudentSummaryAPIView(generics.ListAPIView):
+    serializer_class = api_serializer.StudentSummarySerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        user = User.objects.get(id=user_id)
+
+        total_courses = api_models.EnrolledCourse.objects.filter(user=user).count()
+        completed_lessons = api_models.CompletedLesson.objects.filter(user=user).count()
+        achieved_certificates = api_models.Certificate.objects.filter(user=user).count()
+
+        return [{
+            "total_courses": total_courses,
+            "completed_lessons": completed_lessons,
+            "achieved_certificates": achieved_certificates,
+        }]
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 

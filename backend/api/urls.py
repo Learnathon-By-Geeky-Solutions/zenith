@@ -35,6 +35,8 @@ path("cart/stats/<cart_id>/", api_views.CartStatsAPIView.as_view()),
 #apply cupon
  path("order/coupon/", api_views.CouponApplyAPIView.as_view()),
  
+ #studeny summary 
+  path("student/summary/<user_id>/", api_views.StudentSummaryAPIView.as_view()),
 
 
 ]
