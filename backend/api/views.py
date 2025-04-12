@@ -400,3 +400,15 @@ class StudentCourseListAPIView(generics.ListAPIView):
         user_id = self.kwargs['user_id']
         user =  User.objects.get(id=user_id)
         return api_models.EnrolledCourse.objects.filter(user=user)
+
+class StudentCourseDetailAPIView(generics.RetrieveAPIView):
+    serializer_class = api_serializer.EnrolledCourseSerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'enrollment_id'
+
+    def get_object(self):
+        user_id = self.kwargs['user_id']
+        enrollment_id = self.kwargs['enrollment_id']
+
+        user = User.objects.get(id=user_id)
+        return api_models.EnrolledCourse.objects.get(user=user, enrollment_id=enrollment_id)
