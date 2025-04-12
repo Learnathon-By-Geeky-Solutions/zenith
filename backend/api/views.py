@@ -500,3 +500,19 @@ class StudentNoteCreateAPIView(generics.ListCreateAPIView):
         api_models.Note.objects.create(user=user, course=enrolled.course, note=note, title=title)
 
         return Response({"message": "Note created successfullly"}, status=status.HTTP_201_CREATED)
+    
+
+
+class StudentNoteDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = api_serializer.NoteSerializer
+    permission_classes = [AllowAny]
+
+    def get_object(self):
+        user_id = self.kwargs['user_id']
+        enrollment_id = self.kwargs['enrollment_id']
+        note_id = self.kwargs['note_id']
+
+        user = User.objects.get(id=user_id)
+        enrolled = api_models.EnrolledCourse.objects.get(enrollment_id=enrollment_id)
+        note = api_models.Note.objects.get(user=user, course=enrolled.course, id=note_id)
+        return note
