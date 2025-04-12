@@ -54,4 +54,6 @@ path("student/course-completed/", api_views.StudentCourseCompletedCreateAPIView.
 path("student/course-note/", api_views.StudentNoteCreateAPIView.as_view()),
 
 path("student/rate-course/", api_views.StudentRateCourseCreateAPIView.as_view()),
+path("student/review-detail/<user_id>/<review_id>/", api_views.StudentRateCourseUpdateAPIView.as_view()),
+path("student/wishlist/<user_id>/", api_views.StudentWishListListCreateAPIView.as_view()),
 ]
