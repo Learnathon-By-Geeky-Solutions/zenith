@@ -412,3 +412,28 @@ class StudentCourseDetailAPIView(generics.RetrieveAPIView):
 
         user = User.objects.get(id=user_id)
         return api_models.EnrolledCourse.objects.get(user=user, enrollment_id=enrollment_id)
+    
+
+class StudentCourseCompletedCreateAPIView(generics.CreateAPIView):
+    serializer_class = api_serializer.CompletedLessonSerializer
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        user_id = request.data['user_id']
+        course_id = request.data['course_id']
+        variant_item_id = request.data['variant_item_id']
+
+        user = User.objects.get(id=user_id)
+        course = api_models.Course.objects.get(id=course_id)
+        variant_item = api_models.VariantItem.objects.get(variant_item_id=variant_item_id)
+
+        completed_lessons = api_models.CompletedLesson.objects.filter(user=user, course=course, variant_item=variant_item).first()
+
+        if completed_lessons:
+            completed_lessons.delete()
+            return Response({"message": "Course marked as not completed"})
+
+        else:
+            api_models.CompletedLesson.objects.create(user=user, course=course, variant_item=variant_item)
+            return Response({"message": "Course marked as completed"})
+        

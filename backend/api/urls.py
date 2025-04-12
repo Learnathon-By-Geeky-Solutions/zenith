@@ -43,4 +43,6 @@ path("student/course-list/<user_id>/", api_views.StudentCourseListAPIView.as_vie
 
 #course detail api view
 path("student/course-detail/<user_id>/<enrollment_id>/", api_views.StudentCourseDetailAPIView.as_view()),
+#course completed api view
+path("student/course-completed/", api_views.StudentCourseCompletedCreateAPIView.as_view()),
 ]
