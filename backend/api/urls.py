@@ -52,4 +52,6 @@ path("student/course-completed/", api_views.StudentCourseCompletedCreateAPIView.
 
 #note api
 path("student/course-note/", api_views.StudentNoteCreateAPIView.as_view()),
+
+path("student/rate-course/", api_views.StudentRateCourseCreateAPIView.as_view()),
 ]
